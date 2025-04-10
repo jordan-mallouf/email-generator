@@ -27,14 +27,14 @@ def main():
     # Gather input from user
     name = input("Enter the recipient's name: ")
     date = input("Enter the date of the email: ")
-    amount = input("Enter the amount of the invoice: ")
+    amount = input("Enter the amount of the invoice: $")
     invoice_number = input("Enter an invoice number: ")
     details = input("Enter any additional details (press Enter to skip): ")
 
     # Extra input if using 'Thank-You' template
     if 'thanks' in template_path.lower():
         payment_date = input("Enter the payment date: ")
-        new_amount = input("Enter the payment amount: ")
+        new_amount = input("Enter the payment amount: $")
 
     # Example data
     values = {
