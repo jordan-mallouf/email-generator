@@ -31,6 +31,11 @@ def main():
     invoice_number = input("Enter an invoice number: ")
     details = input("Enter any additional details (press Enter to skip): ")
 
+    # Extra input if using 'Thank-You' template
+    if 'thanks' in template_path.lower():
+        payment_date = input("Enter the payment date: ")
+        new_amount = input("Enter the payment amount: ")
+
     # Example data
     values = {
         "name": name,
@@ -39,6 +44,10 @@ def main():
         "invoice_number": invoice_number,
         "details": details or "" # since details is optional
     }
+
+    if 'thanks' in template_path.lower():
+        values["payment_date"] = payment_date
+        values["new_amount"] = new_amount
 
     email = generate_email(template, values)
     print(email)
