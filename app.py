@@ -41,6 +41,16 @@ def get_currency_input(prompt):
         except ValueError:
             print("Please enter a valid number for the amount.")
 
+# Input validation for input dates
+def get_valid_date(prompt):
+    while True:
+        value = input(prompt).strip()
+        try:
+            datetime.strptime(value, '%m/%d/%Y')
+            return value
+        except ValueError:
+            print("Invalid date format. Please use MM/DD/YYYY (e.g., 04/10/2025).")
+
 def main():
     # Initialize the current date
     today = datetime.today().strftime('%m/%d/%Y')
@@ -56,11 +66,11 @@ def main():
 
     # Extra input if using 'Invoice or Reminder' template
     if 'invoice' in template_path.lower() or 'reminder' in template_path.lower():
-        due_date = get_required_input("Enter the due date of the invoice: ")
+        due_date = get_valid_date("Enter the due date of the invoice: ")
 
     # Extra input if using 'Thank-You' template
     if 'thanks' in template_path.lower():
-        payment_date = get_required_input("Enter the payment date: ")
+        payment_date = get_valid_date("Enter the payment date: ")
         new_amount = get_currency_input("Enter the payment amount: $")
 
     # Data dictionary
