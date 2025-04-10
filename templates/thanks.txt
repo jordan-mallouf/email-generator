@@ -1,13 +1,13 @@
-Subject: Thank You! Invoice #{invoice_number}
+Subject: Payment Confirmation - Invoice #{invoice_number}
 
 Hello {name},
 
-Thank you for paying your open invoice on {payment_date}.
-The amount for this invoice is ${amount}
+Thank you for your payment of ${new_amount} on {payment_date}.
+This confirms that we've recieved your payment for invoice #{invoice_number}.
 
 {details}
 
-If you have any questions or would like to speak to anyone regarding this, please feel free to reach out.
+If you have any questions, please feel free to reach out.
 
 Best,
 The Production Team
