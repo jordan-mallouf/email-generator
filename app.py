@@ -1,4 +1,5 @@
 import os
+from datetime import datetime
 
 def load_template(template_path):
     with open(template_path, 'r') as file:
@@ -21,15 +22,21 @@ def select_template():
             print("Invalid choice. Please enter a valid option!")
 
 def main():
+    # Initialize the current date
+    today = datetime.today().strftime('%m/%d/%Y')
     template_path = select_template()
     template = load_template(template_path)
 
     # Gather input from user
     name = input("Enter the recipient's name: ")
-    date = input("Enter the date of the email: ")
+    date = today
     amount = input("Enter the amount of the invoice: $")
     invoice_number = input("Enter an invoice number: ")
     details = input("Enter any additional details (press Enter to skip): ")
+
+    # Extra input if using 'Invoice or Reminder' template
+    if 'invoice' or 'reminder' in template_path.lower():
+        due_date = input("Enter the due date of the invoice: ")
 
     # Extra input if using 'Thank-You' template
     if 'thanks' in template_path.lower():
@@ -45,6 +52,9 @@ def main():
         "details": details or "" # since details is optional
     }
 
+    if 'invoice' or 'reminder' in template_path.lower():
+        values["due_date"] = due_date
+        
     if 'thanks' in template_path.lower():
         values["payment_date"] = payment_date
         values["new_amount"] = new_amount
