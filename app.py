@@ -1,3 +1,5 @@
+import os
+
 def load_template(template_path):
     with open(template_path, 'r') as file:
         return file.read()
@@ -5,8 +7,21 @@ def load_template(template_path):
 def generate_email(template_str, data):
     return template_str.format(**data)
 
+def select_template():
+    templates = [f for f in os.listdir('templates') if f.endswith('.txt')]
+    print("Available Templates:")
+    for i, filename in enumerate(templates, start=1):
+        print(f"{i}. {filename}")
+
+    while True:
+        choice = input("Select a template by number: ")
+        if choice.isdigit() and 1 <= int(choice) <= len(templates):
+            return os.path.join('templates', templates[int(choice) - 1])
+        else:
+            print("Invalid choice. Please enter a valid option!")
+
 def main():
-    template_path = 'templates/default.txt'
+    template_path = select_template()
     template = load_template(template_path)
 
     # Gather input from user
