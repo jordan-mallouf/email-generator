@@ -2,7 +2,9 @@ Subject: Notice of Invoice #{invoice_number}
 
 Hello {name},
 
-This is a automatically-generated email stating that you have an open invoice that is due on {date}.
+This is a prerecorded message generated on {date}.
+
+The purpose of this message is to let you know about an upcoming invoice that is due on {due_date}.
 The amount for this invoice is ${amount}
 
 {details}
