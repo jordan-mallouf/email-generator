@@ -9,13 +9,20 @@ def main():
     template_path = 'template/default.txt'
     template = load_template(template_path)
 
+    # Gather input from user
+    name = input("Enter the recipient's name: ")
+    date = input("Enter the date of the email: ")
+    amount = input("Enter the amount of the invoice: ")
+    invoice_number = input("Enter an invoice number: ")
+    details = input("Enter any additional details (press Enter to skip): ")
+
     # Example data
     values = {
-        "name":"Jordan Mallouf",
-        "date": "4/10/2025",
-        "amount": 150.00,
-        "invoice_number": 123456,
-        "details": "This invoice covers your monthly fraternity dues for April."
+        "name": name,
+        "date": date,
+        "amount": amount,
+        "invoice_number": invoice_number,
+        "details": details or "" # since details is optional
     }
 
     email = generate_email(template, values)
