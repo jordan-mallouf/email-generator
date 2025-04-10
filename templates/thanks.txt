@@ -1,0 +1,15 @@
+Subject: Thank You! Invoice #{invoice_number}
+
+Hello {name},
+
+Thank you for paying your open invoice on {payment_date}.
+The amount for this invoice is ${amount}
+
+{details}
+
+If you have any questions or would like to speak to anyone regarding this, please feel free to reach out.
+
+Best,
+The Production Team
+team@production.com
+(123) 456-7890

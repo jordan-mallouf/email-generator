@@ -1,4 +1,4 @@
-Subject: Invoice #{invoice_number}
+Subject: Reminder of Invoice #{invoice_number}
 
 Hello {name},
 
@@ -7,7 +7,7 @@ The amount for this invoice is ${amount}
 
 {details}
 
-If you have any questions or would like to speak to anyone regarding this, please feel free to reach out.
+If you have any questions or would like to speak to anyone regarding this, please feel free to reach out!
 
 Best,
 The Production Team

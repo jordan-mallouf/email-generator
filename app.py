@@ -6,7 +6,7 @@ def generate_email(template_str, data):
     return template_str.format(**data)
 
 def main():
-    template_path = 'template/default.txt'
+    template_path = 'templates/default.txt'
     template = load_template(template_path)
 
     # Gather input from user
