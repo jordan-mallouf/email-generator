@@ -2,6 +2,7 @@ import os
 from datetime import datetime
 from core.generator import (load_template, generate_email, list_templates, select_template)
 from core.validators import(get_required_input, get_currency_input, get_valid_date)
+from core.io import(ensure_output_dir, generate_filename, check_filename, save_email)
 
 def main():
     # Initialize the current date
@@ -51,24 +52,16 @@ def main():
     print("=" * 40)
 
     # Preview the proposed filename before confirmation
-    proposed_filename = f"{values['name'].replace(' ','_')}_{values['invoice_number']}.txt"
+    proposed_filename = generate_filename(values['name'], values['invoice_number'])
     print(f"Proposed filename: {proposed_filename}")
 
     # Confirmation before saving email as a .txt file
     confirm = input("Would you like to save this email as a .txt file? (y/n): ").strip().lower()
 
     if confirm == 'y':
-        os.makedirs('output', exist_ok=True)
-        output_path = os.path.join('output', proposed_filename)
-
-        # Check if file exists
-        if os.path.exists(output_path):
-            new_filename = get_required_input("File name already exists. Please enter a new filename: ")
-            proposed_filename = f"{new_filename}.txt"
-            output_path = os.path.join('output', proposed_filename)
-
-        with open(output_path, 'w') as f:
-            f.write(email)
+        ensure_output_dir()
+        output_path, proposed_filename = check_filename('output', proposed_filename)
+        save_email(email, output_path)
 
         print(f"Email saved to output folder as: {proposed_filename}")
     else:

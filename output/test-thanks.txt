@@ -1,0 +1,15 @@
+Subject: Payment Confirmation - Invoice #12345
+
+Hello Jordan Mallouf,
+
+Thank you for your payment of $150.00 on 4/11/2025.
+This confirms that we've recieved your payment for invoice #12345.
+
+Test thanks
+
+If you have any questions, please feel free to reach out.
+
+Best,
+The Production Team
+team@production.com
+(123) 456-7890
