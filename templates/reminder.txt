@@ -3,7 +3,7 @@ Subject: Reminder of Invoice #{invoice_number}
 Hello {name},
 
 This is a reminder that you have an open invoice that is due on {due_date}.
-The amount for this invoice is ${amount}
+The amount for this invoice is ${amount}.
 
 {details}
 

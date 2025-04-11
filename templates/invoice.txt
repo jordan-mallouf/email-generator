@@ -5,7 +5,7 @@ Hello {name},
 This is a prerecorded message generated on {date}.
 
 The purpose of this message is to let you know about an upcoming invoice that is due on {due_date}.
-The amount for this invoice is ${amount}
+The amount for this invoice is ${amount}.
 
 {details}
 

@@ -90,7 +90,31 @@ def main():
         values["new_amount"] = new_amount
 
     email = generate_email(template, values)
-    print(email)
+    
+    # Generates confirmation message
+    print("\nEmail Preview:")
+    print("=" * 40)
+    print (email)
+    print("=" * 40)
+
+    # Confirmation before saving email as a .txt file
+    confirm = input("Would you like to save this email as a .txt file? (y/n): ").strip().lower()
+
+    # Logic behind saving the message
+    if confirm == 'y':
+        # Make sure the output directory exists; creates one if not present
+        os.makedirs('output', exist_ok=True)
+
+        # Write a filename
+        filename = f"{values['name'].replace(' ', '_')}_{values['invoice_number']}.txt"
+        output_path = os.path.join('output', filename)
+
+        with open(output_path, 'w') as f:
+            f.write(email)
+
+        print("Email saved to outputs folder.")
+    else:
+        print("Email was not saved.")
 
 if __name__ == "__main__":
     main()

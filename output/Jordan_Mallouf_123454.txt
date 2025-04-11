@@ -1,0 +1,17 @@
+Subject: Notice of Invoice #123454
+
+Hello Jordan Mallouf,
+
+This is a prerecorded message generated on 04/10/2025.
+
+The purpose of this message is to let you know about an upcoming invoice that is due on 4/12/2025.
+The amount for this invoice is $250.00.
+
+Test 1
+
+If you have any questions or would like to speak to anyone regarding this, please feel free to reach out!
+
+Best,
+The Production Team
+team@production.com
+(123) 456-7890
