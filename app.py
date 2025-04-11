@@ -97,22 +97,27 @@ def main():
     print (email)
     print("=" * 40)
 
+    # Preview the proposed filename before confirmation
+    proposed_filename = f"{values['name'].replace(' ','_')}_{values['invoice_number']}.txt"
+    print(f"Proposed filename: {proposed_filename}")
+
     # Confirmation before saving email as a .txt file
     confirm = input("Would you like to save this email as a .txt file? (y/n): ").strip().lower()
 
-    # Logic behind saving the message
     if confirm == 'y':
-        # Make sure the output directory exists; creates one if not present
         os.makedirs('output', exist_ok=True)
+        output_path = os.path.join('output', proposed_filename)
 
-        # Write a filename
-        filename = f"{values['name'].replace(' ', '_')}_{values['invoice_number']}.txt"
-        output_path = os.path.join('output', filename)
+        # Check if file exists
+        if os.path.exists(output_path):
+            new_filename = get_required_input("File name already exists. Please enter a new filename: ")
+            proposed_filename = f"{new_filename}.txt"
+            output_path = os.path.join('output', proposed_filename)
 
-        with open(output_path, 'w') as f:
+        with open (output_path, 'w') as f:
             f.write(email)
 
-        print("Email saved to outputs folder.")
+        print(f"Email saved to output folder as: {proposed_filename}")
     else:
         print("Email was not saved.")
 
