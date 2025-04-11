@@ -1,11 +1,6 @@
 import os
 from datetime import datetime
-from core.generator import (
-    load_template,
-    generate_email,
-    list_templates,
-    select_template
-)
+from core.generator import (load_template, generate_email, list_templates, select_template)
 
 # Input validation for required inputs
 def get_required_input(prompt):
