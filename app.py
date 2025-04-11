@@ -1,27 +1,11 @@
 import os
 from datetime import datetime
-
-# Loads template
-def load_template(template_path):
-    with open(template_path, 'r') as file:
-        return file.read()
-    
-def generate_email(template_str, data):
-    return template_str.format(**data)
-
-# Logic for selecting template
-def select_template():
-    templates = [f for f in os.listdir('templates') if f.endswith('.txt')]
-    print("Available Templates:")
-    for i, filename in enumerate(templates, start=1):
-        print(f"{i}. {filename}")
-
-    while True:
-        choice = input("Select a template by number: ")
-        if choice.isdigit() and 1 <= int(choice) <= len(templates):
-            return os.path.join('templates', templates[int(choice) - 1])
-        else:
-            print("Invalid choice. Please enter a valid option!")
+from core.generator import (
+    load_template,
+    generate_email,
+    list_templates,
+    select_template
+)
 
 # Input validation for required inputs
 def get_required_input(prompt):
@@ -37,7 +21,7 @@ def get_currency_input(prompt):
         value = input(prompt).replace("$", "").strip()
         try:
             float_val = float(value)
-            return f"{float_val:.2f}" # Always returns a formatted string
+            return f"{float_val:.2f}"  # Always returns a formatted string
         except ValueError:
             print("Please enter a valid number for the amount.")
 
@@ -54,7 +38,8 @@ def get_valid_date(prompt):
 def main():
     # Initialize the current date
     today = datetime.today().strftime('%m/%d/%Y')
-    template_path = select_template()
+    templates = list_templates()
+    template_path = select_template(templates)
     template = load_template(template_path)
 
     # Gather input from user
@@ -79,7 +64,7 @@ def main():
         "date": date,
         "amount": amount,
         "invoice_number": invoice_number,
-        "details": details or "" # since details is optional
+        "details": details or ""
     }
 
     if 'invoice' in template_path.lower() or 'reminder' in template_path.lower():
@@ -94,7 +79,7 @@ def main():
     # Generates confirmation message
     print("\nEmail Preview:")
     print("=" * 40)
-    print (email)
+    print(email)
     print("=" * 40)
 
     # Preview the proposed filename before confirmation
@@ -114,7 +99,7 @@ def main():
             proposed_filename = f"{new_filename}.txt"
             output_path = os.path.join('output', proposed_filename)
 
-        with open (output_path, 'w') as f:
+        with open(output_path, 'w') as f:
             f.write(email)
 
         print(f"Email saved to output folder as: {proposed_filename}")
