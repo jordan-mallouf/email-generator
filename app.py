@@ -1,8 +1,6 @@
 import os
 from datetime import datetime
-from core.generator import (load_template, generate_email, list_templates, select_template)
-from core.validators import(get_required_input, get_currency_input, get_valid_date)
-from core.io import(ensure_output_dir, generate_filename, check_filename, save_email)
+from core import *
 
 def main():
     # Initialize the current date
