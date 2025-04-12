@@ -1,7 +1,8 @@
 import tkinter as tk
-from tkinter import ttk, messagebox
+from tkinter import ttk, messagebox, simpledialog
 from core import list_templates, generate_email, generate_filename, check_filename, ensure_output_dir, save_email
 from datetime import datetime
+import os
 
 input_fields = {}
 
@@ -78,15 +79,38 @@ def save_email_gui(preview_box):
 
     filename = generate_filename(name, invoice)
     ensure_output_dir()
-    output_path, final_filename = check_filename("output", filename)
+    
+    # Logic for file saving
+    output_dir = 'output'
+    output_path, final_filename = check_filename(output_dir, filename)
 
+    # If file exists, ask user if they want to overwrite, rename or cancel the saved file
+    while os.path.exists(output_path):
+        choice = messagebox.askyesnocancel("File Exists!", f"'{final_filename}' already exists. \n\nWould you like to overwrite it?")
+        if choice is True:
+            # Overwrite
+            break
+        elif choice is False:
+            # Rename
+            new_filename = simpledialog.askstring("New Filename", "Enter a new filename:")
+            if not new_filename:
+                print("Save cancelled.")
+                return
+            final_filename = f"{new_filename}.txt"
+            output_path = os.path.join(output_dir, final_filename)
+        else:
+            # Cancelled
+            print("Save Cancelled.")
+            return    
+
+    # Confirm Save
     confirm = messagebox.askyesno("Confirm Save", f"Save as '{final_filename}'?")
     if not confirm:
-        print("Email was not saved.")
+        print("Cancelled.")
         return
 
     save_email(email_text, output_path)
-    print(f"Saved to: {output_path}")
+    messagebox.showinfo("Success", f"Saved to: {output_path}")
 
 # Main GUI Launcher
 def launch_gui():
