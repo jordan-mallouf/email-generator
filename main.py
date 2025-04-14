@@ -49,12 +49,64 @@ def generate_and_preview_email(template_str, preview_box):
     data = {}
     for field, entry in input_fields.items():
         val = entry.get().strip()
-        if not val:
-            val = ""
-        data[field] = val
+        
+        # Validating inputs
+        if field == "name":
+            if not val:
+                preview_box.delete("1.0", tk.END)
+                preview_box.insert(tk.END, "Name is required.")
+                return
+            data[field] = val
+        
+        elif field == "amount":
+            if not val:
+                preview_box.delete("1.0", tk.END)
+                preview_box.insert(tk.END, "Amount is required.")
+                return
+            try:
+                data[field] = f"{float(val):.2f}"
+            except ValueError:
+                preview_box.delete("1.0", tk.END)
+                preview_box.insert(tk.END, "Amount must be a valid number.")
+                return
+            
+        elif field == "invoice_number":
+            if not val:
+                preview_box.delete("1.0", tk.END)
+                preview_box.insert(tk.END, "Invoice Number is required.")
+                return
+            try:
+                int(val) # Validates integer
+                data[field] = val
+            except ValueError:
+                preview_box.delete("1.0", tk.END)
+                preview_box.insert(tk.END, "Invoice Number must be an integer.")
+                return      
+        
+        elif field in ["due_date", "payment_date"]:
+            if val:
+                try:
+                    datetime.strptime(val, "%m/%d/%Y")
+                    data[field] = val
+                except ValueError:
+                    preview_box.delete("1.0", tk.END)
+                    preview_box.insert(tk.END, f"{field.replace('_', ' ').title()} must be in MM/DD/YYYY format.")
+                    return
+        
+        elif field == "new_amount":
+            if val:
+                try:
+                    data[field] = f"{float(val):.2f}"
+                except ValueError:
+                    preview_box.delete("1.0", tk.END)
+                    preview_box.insert(tk.END, "New Amount must be a valid number.")
+                    return            
+        
+        else:
+            data[field] = val or ""
 
     data["date"] = datetime.today().strftime('%m/%d/%Y')
-
+    
     try:
         result = generate_email(template_str, data)
         preview_box.delete("1.0", tk.END)
